@@ -23,68 +23,57 @@ Serving the HTML pages.
 Testing the webserver.
 
 ## PROGRAM:
-```
-from http.server import HTTPServer, BaseHTTPRequestHandler
-content = """
-<html>
-     <title> High Technology company</title> </title>
-     <body>
-           <center><table border = "4" cellspacing = "10" cellpading = "6"></center>
-              <caption>Top most Revenue Generating High tech Companies </caption>
-              <tr>
-                  <th>S.No</th>
-                  <th>Company</th>			
-                  <th>Revenue</th>
-              </tr>
-              <tr>
-                  <td>1</td>
-                  <td>Google (Alphabet Inc.)</td>
-                  <td>75 Billion</td>
-             </tr>
-             <tr>
-                  <td>2</td>
-                  <td>Apple Inc.</td>
-                  <td>36.8 Billion</td>
-             </tr>
-             <tr>
-                  <td>3</td>
-                  <td>Salesforce</td>
-                  <td>12.9Billion</td>
-            </tr>
-            <tr>
-                  <td>4</td>
-                  <td>Adobe Systems</td>
-                  <td>33 Billion</td>
-            </tr>
-            <tr>
-                  <td>5</td>
-                  <td>Cisco Systems</td>
-                  <td>7.5 Billion</td>
-            </tr>
-            <tr>
-                <td>6</td>
-                <td>Intel Corporation</td>
-                <td>8.9 Billion</td>
-          </tr>
-       </table>
-    </body>
+```python
+import platform
+from http.server import HTTPServer,BaseHTTPRequestHandler
+
+system_name = platform.system()
+node_name = platform.node()
+release = platform.release()
+version = platform.version()
+machine = platform.machine()
+processor = platform.processor()
+
+content='''
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My System Configuration</title>
+</head>
+<body>
+    <h1>My System Configuration</h1>
+    <ul>
+        <li>'''+system_name+'''</li>
+        <li>'''+node_name+'''</li>
+        <li>'''+release+'''</li>  
+        <li>'''+version+'''</li>  
+        <li>'''+machine+'''</li>  
+        <li>'''+processor+'''</li>  
+    </ul>
+</body>
 </html>
-"""
-class myhandler(BaseHTTPRequestHandler):
+'''
+
+class MyServer(BaseHTTPRequestHandler):
     def do_GET(self):
-        print("request received")
-        self.send_response(200)
-        self.send_header('content-type', 'text/html; charset=utf-8')
+        print("Get request received...")
+        self.send_response(200) 
+        self.send_header("content-type", "text/html")       
         self.end_headers()
         self.wfile.write(content.encode())
-server_address = ('',8000)
-httpd = HTTPServer(server_address,myhandler)
-print("my webserver is running...")
+
+print("This is my webserver") 
+server_address =('',8000)
+httpd = HTTPServer(server_address,MyServer)
 httpd.serve_forever()
 ```
 
+
 ## OUTPUT:
-![alt text](image.png)
+![alt text](image-4.png)
+
+![alt text](image-5.png)
 
 ## RESULT:
 The program for implementing simple webserver is executed successfully.
